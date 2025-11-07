@@ -1,0 +1,6 @@
+@ScrewGameCard.HttpApi.Host_HostAddress = http://localhost:5036
+
+GET {{ScrewGameCard.HttpApi.Host_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
