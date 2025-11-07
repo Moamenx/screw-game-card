@@ -1,0 +1,19 @@
+<div class="home-container">
+  <h1>Welcome to Screw Card Game</h1>
+  <form [formGroup]="playerForm" (ngSubmit)="onJoinGame()">
+    <div class="form-group">
+      <label for="playerName">Enter your name:</label>
+      <input 
+        type="text" 
+        id="playerName" 
+        formControlName="playerName" 
+        placeholder="Your name"
+        class="form-control">
+      <div *ngIf="playerForm.get('playerName')?.touched && playerForm.get('playerName')?.invalid" class="error-message">
+        <span *ngIf="playerForm.get('playerName')?.errors?.['required']">Name is required</span>
+        <span *ngIf="playerForm.get('playerName')?.errors?.['minlength']">Name must be at least 2 characters</span>
+      </div>
+    </div>
+    <button type="submit" [disabled]="playerForm.invalid">Join Game</button>
+  </form>
+</div>

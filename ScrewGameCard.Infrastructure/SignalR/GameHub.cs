@@ -1,14 +1,10 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ScrewGameCard.Contract.Interface;
 using ScrewGameCard.Contract.Repository;
 
 namespace ScrewGameCard.Infrastructure.SignalR
 {
-    public class GameHub : Hub
+    public class GameHub : Hub<IGameClient>
     {
         private readonly IGameRoomRepository _gameRoomRepository;   
         public GameHub(IGameRoomRepository gameRoomRepository)
@@ -17,6 +13,7 @@ namespace ScrewGameCard.Infrastructure.SignalR
         }
         public override async Task OnConnectedAsync()
         {
+            var co = Context.ConnectionId;
             await base.OnConnectedAsync();
         }
 

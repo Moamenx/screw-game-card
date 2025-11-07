@@ -1,84 +1,32 @@
-﻿namespace ScrewGameCard.Domain.Entities
+﻿using ScrewGameCard.Domain.Entities.Common;
+using ScrewGameCard.Domain.Enums;
+
+namespace ScrewGameCard.Domain.Entities
 {
-    public class Player
+    public class Player : IAuditable
     {
-        public string Id { get; private set; }
-        public string ConnectionId { get; private set; }
-        public string Name { get; private set; }
-        public List<Card> Hand { get; private set; }
-        public int Score { get; private set; }
-        public int RoundScore { get; private set; }
-        public bool IsReady { get; private set; }
-        public bool HasUsedAction { get; private set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string AvatarUrl { get; set; }
+        public double WinLoseRatio { get; set; }
+        public int NumberOfGamesPlayed { get; set; }
+        public int NumberOfWonGames { get; set; }
+        public int NumberOfLostGames { get; set; }
+        public int Coins { get; set; }
+        public int Rank { get; set; }
+        public PlayerStatus Status { get; set; }
+        public string Language { get; set; }
+        public DateTime LastLoggedInTime { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
 
-        public Player(string name, string connectionId)
+        public virtual ICollection<Friendship> Friendships { get; set; }
+        public virtual ICollection<Friendship> FriendOf { get; set; }
+
+        public Player()
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new Exception("Player name cannot be empty");
-
-            if (string.IsNullOrWhiteSpace(connectionId))
-                throw new Exception("Connection ID cannot be empty");
-
-            Id = Guid.NewGuid().ToString();
-            Name = name;
-            ConnectionId = connectionId;
-            Hand = [];
-            Score = 0;
-            RoundScore = 0;
-            IsReady = false;
-            HasUsedAction = false;
-        }
-
-        public void SetReady(bool ready)
-        {
-            IsReady = ready;
-        }
-
-        public void AddCard(Card card)
-        {
-            if (card == null)
-                throw new Exception("Cannot add null card");
-
-            Hand.Add(card);
-        }
-
-        public void RemoveCard(Card card)
-        {
-            Hand.Remove(card);
-        }
-
-        public void ClearHand()
-        {
-            Hand.Clear();
-        }
-
-        public void MarkActionUsed()
-        {
-            HasUsedAction = true;
-        }
-
-        public void ResetActionUsed()
-        {
-            HasUsedAction = false;
-        }
-
-        public int CalculateRoundScore()
-        {
-            RoundScore = Hand.Sum(c => c.Value);
-            return RoundScore;
-        }
-
-        public void AddToTotalScore()
-        {
-            Score += RoundScore;
-        }
-
-        public void UpdateConnectionId(string connectionId)
-        {
-            if (string.IsNullOrWhiteSpace(connectionId))
-                throw new Exception("Connection ID cannot be empty");
-
-            ConnectionId = connectionId;
+            Friendships = new List<Friendship>();
+            FriendOf = new List<Friendship>();
         }
     }
 }

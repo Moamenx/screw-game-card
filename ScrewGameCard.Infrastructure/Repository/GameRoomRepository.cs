@@ -1,6 +1,6 @@
 ﻿using ScrewGameCard.Contract.Repository;
-using ScrewGameCard.Domain.Entities;
 using System.Collections.Concurrent;
+using ScrewGameCard.Contract.DTO.Game;
 
 namespace ScrewGameCard.Infrastructure.Repository
 {

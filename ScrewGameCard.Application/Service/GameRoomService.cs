@@ -2,9 +2,9 @@
 using ScrewGameCard.Contract.DTO.Game;
 using ScrewGameCard.Contract.DTO.JoinRoom;
 using ScrewGameCard.Contract.DTO.LeaveRoom;
+using ScrewGameCard.Contract.DTO.Player;
 using ScrewGameCard.Contract.Interface;
 using ScrewGameCard.Contract.Repository;
-using ScrewGameCard.Domain.Entities;
 
 namespace ScrewGameCard.Application.Service
 {

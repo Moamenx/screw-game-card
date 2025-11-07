@@ -1,18 +1,18 @@
 ﻿using ScrewGameCard.Domain.Enums;
 
-namespace ScrewGameCard.Domain.Entities
+namespace ScrewGameCard.Contract.DTO.Game
 {
     public class GameRoom
     {
         public Guid Id { get; private set; }
         public string RoomName { get; private set; }
-        public List<Player> Players { get; private set; }
+        public List<Player.Player> Players { get; private set; }
         public GameState State { get; private set; }
         public int CurrentPlayerIndex { get; private set; }
         public int CurrentRound { get; private set; }
         public int MaxRounds { get; private set; }
-        public List<Card> Deck { get; private set; }
-        public List<Card> DiscardPile { get; private set; }
+        public List<Card.Card> Deck { get; private set; }
+        public List<Card.Card> DiscardPile { get; private set; }
         public DateTime CreationTime { get; private set; }
         public int CardsPerPlayer { get; private set; }
         public bool HasDoublePointsRound { get; set; }
@@ -20,7 +20,7 @@ namespace ScrewGameCard.Domain.Entities
         private const int MinPlayers = 4;
         private const int MaxPlayers = 4;
 
-        public Player? CurrentPlayer => Players.ElementAtOrDefault(CurrentPlayerIndex);
+        public Player.Player? CurrentPlayer => Players.ElementAtOrDefault(CurrentPlayerIndex);
         public bool IsFull => Players.Count >= MaxPlayers;
         public bool CanStart => Players.Count >= MinPlayers &&
                                 Players.Count <= MaxPlayers &&
@@ -52,7 +52,7 @@ namespace ScrewGameCard.Domain.Entities
             HasDoublePointsRound = hasDoublePointsRound;
         }
 
-        public void AddPlayer(Player player)
+        public void AddPlayer(Player.Player player)
         {
             if (IsFull)
                 throw new Exception("Room is full");
@@ -66,7 +66,7 @@ namespace ScrewGameCard.Domain.Entities
             Players.Add(player);
         }
 
-        public void RemovePlayer(Player player)
+        public void RemovePlayer(Player.Player player)
         {
             Players.Remove(player);
         }
@@ -81,12 +81,12 @@ namespace ScrewGameCard.Domain.Entities
             CurrentPlayerIndex = 0;
         }
 
-        public void SetDeck(List<Card> deck)
+        public void SetDeck(List<Card.Card> deck)
         {
             Deck = deck ?? throw new Exception("Deck cannot be null");
         }
 
-        public void AddToDiscardPile(Card card)
+        public void AddToDiscardPile(Card.Card card)
         {
             DiscardPile.Add(card);
         }
@@ -124,7 +124,7 @@ namespace ScrewGameCard.Domain.Entities
             State = GameState.InProgress;
         }
 
-        public Player? GetWinner()
+        public Player.Player? GetWinner()
         {
             if (State != GameState.Ended || Players.Count == 0)
                 return null;

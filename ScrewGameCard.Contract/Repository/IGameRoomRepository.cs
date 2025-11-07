@@ -1,4 +1,4 @@
-﻿using ScrewGameCard.Domain.Entities;
+﻿using ScrewGameCard.Contract.DTO.Game;
 
 namespace ScrewGameCard.Contract.Repository
 {

@@ -1,11 +1,6 @@
 ﻿using ScrewGameCard.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ScrewGameCard.Domain.Entities
+namespace ScrewGameCard.Contract.DTO.Card
 {
     public class Card
     {
