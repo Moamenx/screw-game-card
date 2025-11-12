@@ -1,4 +1,4 @@
-﻿using ScrewGameCard.Contract.Interface;
+﻿using ScrewGameCard.Application.Contract;
 
 namespace ScrewGameCard.Application.Service
 {

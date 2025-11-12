@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ScrewGameCard.Contract.Interface;
-using ScrewGameCard.Contract.Repository;
+using ScrewGameCard.Application.Contract;
+using ScrewGameCard.Application.Repository;
 using ScrewGameCard.Infrastructure.Data;
 using ScrewGameCard.Infrastructure.Repository;
 using ScrewGameCard.Infrastructure.Service;
@@ -32,12 +32,12 @@ namespace ScrewGameCard.Infrastructure
         }
         private static void RegisterRepositories(IServiceCollection services)
         {
-            services.AddScoped<IGameRoomRepository, GameRoomRepository>();
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IGameRepository, GameRepository>();
         }
 
         private static void RegisterServices(IServiceCollection services)
         {
-            services.AddScoped<IGameNotificationService, GameNotificationService>();
         }
 
         private static void ConfigureDatabase(IServiceCollection services, IConfiguration configuration)

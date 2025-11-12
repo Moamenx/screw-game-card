@@ -5,7 +5,7 @@ namespace ScrewGameCard.Domain.Entities
 {
     public class Player : IAuditable
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string AvatarUrl { get; set; }
         public double WinLoseRatio { get; set; }
@@ -14,19 +14,18 @@ namespace ScrewGameCard.Domain.Entities
         public int NumberOfLostGames { get; set; }
         public int Coins { get; set; }
         public int Rank { get; set; }
+        public int Level { get; set; }
+        public double Experience  { get; set; }
         public PlayerStatus Status { get; set; }
         public string Language { get; set; }
         public DateTime LastLoggedInTime { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
+            
+        public virtual ICollection<Friendship> Friendships { get; set; } = new List<Friendship>();
+        public virtual ICollection<Friendship> FriendOf { get; set; } = new List<Friendship>();
+        public virtual ICollection<GamePlayer> GamePlayers { get; set; } = new List<GamePlayer>();
+        public virtual ICollection<Game> HostedGames { get; set; } = new List<Game>();
 
-        public virtual ICollection<Friendship> Friendships { get; set; }
-        public virtual ICollection<Friendship> FriendOf { get; set; }
-
-        public Player()
-        {
-            Friendships = new List<Friendship>();
-            FriendOf = new List<Friendship>();
-        }
     }
 }

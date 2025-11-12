@@ -14,6 +14,12 @@ namespace ScrewGameCard.Infrastructure.Data.EntityConfiguration
             builder.Property(p => p.Name).IsRequired().HasMaxLength(50);
             builder.Property(p => p.AvatarUrl).HasMaxLength(200);
             builder.HasIndex(p => p.Name).IsUnique();
+
+            builder.HasMany(p => p.HostedGames)
+                .WithOne(r => r.Host)
+                .HasForeignKey(r => r.HostId)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }

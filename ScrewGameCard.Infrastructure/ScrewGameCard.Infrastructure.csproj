@@ -12,7 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ScrewGameCard.Contract\ScrewGameCard.Contract.csproj" />
+	  <ProjectReference Include="..\ScrewGameCard.Domain\ScrewGameCard.Domain.csproj" />
+	  <ProjectReference Include="..\ScrewGameCard.Application\ScrewGameCard.Application.csproj" />
   </ItemGroup>
 
 </Project>

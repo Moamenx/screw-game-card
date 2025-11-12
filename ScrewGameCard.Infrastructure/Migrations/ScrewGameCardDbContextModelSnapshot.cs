@@ -56,7 +56,7 @@ namespace ScrewGameCard.Infrastructure.Migrations
                     b.ToTable("Friendship", (string)null);
                 });
 
-            modelBuilder.Entity("ScrewGameCard.Domain.Entities.Player", b =>
+            modelBuilder.Entity("ScrewGameCard.Domain.Entities.Host", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -114,18 +114,18 @@ namespace ScrewGameCard.Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Player", (string)null);
+                    b.ToTable("Host", (string)null);
                 });
 
             modelBuilder.Entity("ScrewGameCard.Domain.Entities.Friendship", b =>
                 {
-                    b.HasOne("ScrewGameCard.Domain.Entities.Player", "Friend")
+                    b.HasOne("ScrewGameCard.Domain.Entities.Host", "Friend")
                         .WithMany("FriendOf")
                         .HasForeignKey("FriendId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ScrewGameCard.Domain.Entities.Player", "Player")
+                    b.HasOne("ScrewGameCard.Domain.Entities.Host", "Host")
                         .WithMany("Friendships")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -133,10 +133,10 @@ namespace ScrewGameCard.Infrastructure.Migrations
 
                     b.Navigation("Friend");
 
-                    b.Navigation("Player");
+                    b.Navigation("Host");
                 });
 
-            modelBuilder.Entity("ScrewGameCard.Domain.Entities.Player", b =>
+            modelBuilder.Entity("ScrewGameCard.Domain.Entities.Host", b =>
                 {
                     b.Navigation("FriendOf");
 

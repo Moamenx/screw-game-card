@@ -1,6 +1,6 @@
-﻿using ScrewGameCard.Contract.Repository;
-using System.Collections.Concurrent;
-using ScrewGameCard.Contract.DTO.Game;
+﻿using System.Collections.Concurrent;
+using ScrewGameCard.Application.DTO.Game;
+using ScrewGameCard.Application.Repository;
 
 namespace ScrewGameCard.Infrastructure.Repository
 {
@@ -23,7 +23,7 @@ namespace ScrewGameCard.Infrastructure.Repository
         public Task<List<GameRoom>> GetAvailableRoomsAsync()
         {
             var availableRooms = _rooms.Values
-                .Where(r => r.State == Domain.Enums.GameState.Waiting && !r.IsFull)
+                .Where(r => r.Status == Domain.Enums.GameStatus.Waiting && !r.IsFull)
                 .ToList();
             return Task.FromResult(availableRooms);
         }

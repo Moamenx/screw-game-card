@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ScrewGameCard.Application.Contract;
 using ScrewGameCard.Application.Service;
-using ScrewGameCard.Contract.Interface;
 
 namespace ScrewGameCard.Application
 {
@@ -16,7 +16,7 @@ namespace ScrewGameCard.Application
         private static void RegisterServices(IServiceCollection services)
         {
             services.AddScoped<IGameEngine, GameEngine>();
-            services.AddScoped<IGameRoomService, GameRoomService>();    
+            services.AddScoped<IGameService, GameService>();
         }
     }
 }

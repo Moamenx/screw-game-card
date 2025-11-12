@@ -13,7 +13,7 @@ namespace ScrewGameCard.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Player",
+                name: "Host",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -55,13 +55,13 @@ namespace ScrewGameCard.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_Friendship_Player_FriendId",
                         column: x => x.FriendId,
-                        principalTable: "Player",
+                        principalTable: "Host",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Friendship_Player_PlayerId",
                         column: x => x.PlayerId,
-                        principalTable: "Player",
+                        principalTable: "Host",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -80,7 +80,7 @@ namespace ScrewGameCard.Infrastructure.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Player_Name",
-                table: "Player",
+                table: "Host",
                 column: "Name",
                 unique: true);
         }
@@ -92,7 +92,7 @@ namespace ScrewGameCard.Infrastructure.Migrations
                 name: "Friendship");
 
             migrationBuilder.DropTable(
-                name: "Player");
+                name: "Host");
         }
     }
 }

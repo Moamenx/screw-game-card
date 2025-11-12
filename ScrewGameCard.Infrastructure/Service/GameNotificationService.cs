@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using ScrewGameCard.Contract.Interface;
-using ScrewGameCard.Contract.Repository;
+using ScrewGameCard.Application.Contract;
+using ScrewGameCard.Application.Repository;
 using ScrewGameCard.Infrastructure.SignalR;
 
 namespace ScrewGameCard.Infrastructure.Service
