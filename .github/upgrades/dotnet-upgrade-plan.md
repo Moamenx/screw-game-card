@@ -1,4 +1,4 @@
-# .NET 10.0 Upgrade Plan
+	# .NET 10.0 Upgrade Plan
 
 ## Execution Steps
 
