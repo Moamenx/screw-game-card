@@ -5,9 +5,9 @@ namespace ScrewGameCard.Domain.Entities
 {
     public class Friendship : IAuditable
     {
-        public int Id { get; set; }
-        public int PlayerId { get; set; }
-        public int FriendId { get; set; }
+        public Guid Id { get; set; }
+        public Guid PlayerId { get; set; }
+        public Guid FriendId { get; set; }
         public FriendshipStatus Status { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }

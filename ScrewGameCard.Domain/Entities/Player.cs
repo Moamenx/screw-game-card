@@ -21,11 +21,12 @@ namespace ScrewGameCard.Domain.Entities
         public DateTime LastLoggedInTime { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
-            
+        public Guid StatisticsId { get; set; }
         public virtual ICollection<Friendship> Friendships { get; set; } = new List<Friendship>();
         public virtual ICollection<Friendship> FriendOf { get; set; } = new List<Friendship>();
         public virtual ICollection<GamePlayer> GamePlayers { get; set; } = new List<GamePlayer>();
         public virtual ICollection<Game> HostedGames { get; set; } = new List<Game>();
+        public virtual Statistics Statistics { get; set; }
 
     }
 }

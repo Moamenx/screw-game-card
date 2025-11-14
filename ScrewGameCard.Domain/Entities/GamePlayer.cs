@@ -18,7 +18,7 @@ namespace ScrewGameCard.Domain.Entities
         // Navigation properties
         public virtual Game Game { get; set; }
         public virtual Player Player { get; set; }
-        public ICollection<Round> Rounds { get; set; } = new List<Round>();
+        public ICollection<GameRoundPlayer> RoundParticipations { get; set; } = new List<GameRoundPlayer>();
 
     }
 }

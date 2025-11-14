@@ -20,6 +20,11 @@ namespace ScrewGameCard.Infrastructure.Data.EntityConfiguration
                 .HasForeignKey(r => r.HostId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.HasOne(p => p.Statistics)
+                .WithOne(s => s.Player)
+                .HasForeignKey<Player>(p => p.StatisticsId)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }

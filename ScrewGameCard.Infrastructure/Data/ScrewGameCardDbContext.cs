@@ -9,11 +9,23 @@ namespace ScrewGameCard.Infrastructure.Data
     {
         public DbSet<Player> Players { get; set; }
         public DbSet<Friendship> Friendships { get; set; }
+        public DbSet<Game> Games { get; set; }
+        public DbSet<GamePlayer> GamePlayers { get; set; }
+        public DbSet<Round> Rounds { get; set; }
+        public DbSet<GameRoundPlayer> GameRoundPlayers { get; set; }
+        public DbSet<Statistics> Statistics { get; set; }
+        //public DbSet<Leaderboard> Leaderboards { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new PlayerEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new FriendshipEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new GameEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new GamePlayerEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new RoundEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new GameRoundPlayerEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new StatisticsEntityTypeConfiguration());
+            //modelBuilder.ApplyConfiguration(new LeaderboardEntityTypeConfiguration());
             base.OnModelCreating(modelBuilder);
         }
 

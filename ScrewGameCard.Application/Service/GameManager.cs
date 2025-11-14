@@ -18,6 +18,7 @@ namespace ScrewGameCard.Application.Service
 
         public Task<CreateRoomResponse> CreateGameAsync(CreateGameRequest request)
         {
+            
             throw new NotImplementedException();
         }
 
