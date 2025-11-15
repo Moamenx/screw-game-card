@@ -1,5 +1,10 @@
 <div class="home">
   <h2>Welcome to Screw Game Card</h2>
   <p>Play the exciting card game with friends!</p>
-  <app-button (onClick)="goToLobby()">Enter Lobby</app-button>
+  @if (authService.isLoggedIn()) {
+    <app-button (onClick)="goToLobby()">Enter Lobby</app-button>
+  } @else {
+    <app-button routerLink="/login">Login</app-button>
+    <app-button routerLink="/register">Register</app-button>
+  }
 </div>

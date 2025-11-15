@@ -1,0 +1,12 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: var(--spacing-lg);
+}
+
+.error {
+  color: var(--danger-color);
+  margin-bottom: var(--spacing-md);
+}

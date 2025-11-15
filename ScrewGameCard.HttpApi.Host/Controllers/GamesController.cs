@@ -6,7 +6,7 @@ using ScrewGameCard.Application.DTO.Common;
 namespace ScrewGameCard.HttpApi.Host.Controllers
 {
     [ApiController]
-    [Route("games")]
+    [Route("api/games")]
 
     public class GamesController : ControllerBase
     {

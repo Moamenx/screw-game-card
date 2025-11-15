@@ -1,0 +1,21 @@
+<div class="login-container">
+    <h2 card-header>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <app-input
+        label="Username"
+        formControlName="username"
+        placeholder="Enter username"
+      ></app-input>
+      <app-input
+        label="Password"
+        type="password"
+        formControlName="password"
+        placeholder="Enter password"
+      ></app-input>
+      @if (errorMessage) {
+        <div class="error">{{ errorMessage }}</div>
+      }
+      <app-button type="primary" [disabled]="loginForm.invalid">Login</app-button>
+    </form>
+    <p>Don't have an account? <a routerLink="/register">Register</a></p>
+</div>

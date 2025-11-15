@@ -7,6 +7,7 @@ namespace ScrewGameCard.Domain.Entities
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public string Password { get; set; } // Hashed password
         public string AvatarUrl { get; set; }
         public double WinLoseRatio { get; set; }
         public int NumberOfGamesPlayed { get; set; }

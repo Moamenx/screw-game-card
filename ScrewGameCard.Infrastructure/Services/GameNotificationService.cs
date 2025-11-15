@@ -3,7 +3,7 @@ using ScrewGameCard.Application.Contract;
 using ScrewGameCard.Application.Repository;
 using ScrewGameCard.Infrastructure.SignalR;
 
-namespace ScrewGameCard.Infrastructure.Service
+namespace ScrewGameCard.Infrastructure.Services
 {
     public class GameNotificationService : IGameNotificationService
     {

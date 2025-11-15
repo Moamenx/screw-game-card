@@ -14,6 +14,7 @@ namespace ScrewGameCard.Infrastructure.Data
         public DbSet<Round> Rounds { get; set; }
         public DbSet<GameRoundPlayer> GameRoundPlayers { get; set; }
         public DbSet<Statistics> Statistics { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
         //public DbSet<Leaderboard> Leaderboards { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
