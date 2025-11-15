@@ -1,0 +1,13 @@
+<aside class="sidebar" [class.collapsed]="collapsed">
+  <nav class="nav flex-column p-2">
+    <a class="nav-link" routerLink="/home" routerLinkActive="active" aria-label="Home">
+      <span>🏠</span> @if (!collapsed) { <span>Home</span> }
+    </a>
+    <a class="nav-link" routerLink="/lobby" routerLinkActive="active" aria-label="Lobby">
+      <span>🎮</span> @if (!collapsed) { <span>Lobby</span> }
+    </a>
+    <a class="nav-link" routerLink="/profile" routerLinkActive="active" aria-label="Profile">
+      <span>👤</span> @if (!collapsed) { <span>Profile</span> }
+    </a>
+  </nav>
+</aside>

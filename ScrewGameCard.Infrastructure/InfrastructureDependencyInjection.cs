@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ScrewGameCard.Application.Contract;
 using ScrewGameCard.Application.Repository;
+using ScrewGameCard.Domain.Entities;
 using ScrewGameCard.Infrastructure.Data;
 using ScrewGameCard.Infrastructure.Repository;
-using ScrewGameCard.Infrastructure.Service;
 
 namespace ScrewGameCard.Infrastructure
 {
@@ -34,6 +33,8 @@ namespace ScrewGameCard.Infrastructure
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped<IGameRepository, GameRepository>();
+            services.AddScoped<IGenericRepository<GamePlayer>, GenericRepository<GamePlayer>>();
+            services.AddScoped<IGenericRepository<Round>, GenericRepository<Round>>();
         }
 
         private static void RegisterServices(IServiceCollection services)

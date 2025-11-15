@@ -1,0 +1,68 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ButtonComponent } from '../../shared/components/button/button.component';
+import { GameHubService } from '../../core/services/game-hub.service';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-lobby',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
+  templateUrl: './lobby.component.html',
+  styleUrls: ['./lobby.component.scss']
+})
+export class LobbyComponent implements OnInit {
+  createForm: FormGroup;
+  joinForm: FormGroup;
+  showCreateForm = false;
+  showJoinForm = false;
+
+  constructor(
+    private fb: FormBuilder,
+    private gameHubService: GameHubService,
+    private router: Router
+  ) {
+    this.createForm = this.fb.group({
+      roomName: ['', Validators.required],
+      passCode: [''],
+      maxPlayers: [4, [Validators.required, Validators.min(2), Validators.max(8)]]
+    });
+
+    this.joinForm = this.fb.group({
+      gameId: ['', Validators.required]
+    });
+  }
+
+  ngOnInit() {
+    this.gameHubService.startConnection();
+    this.gameHubService.gameCreated$.subscribe(game => {
+      this.router.navigate(['/game', game.id]);
+    });
+    this.gameHubService.lobbyError$.subscribe(error => {
+      alert(error);
+    });
+  }
+
+  createGame() {
+    if (this.createForm.valid) {
+      const request = {
+        roomName: this.createForm.value.roomName,
+        passCode: this.createForm.value.passCode,
+        maximumNumberOfPlayers: this.createForm.value.maxPlayers,
+        type: 1, // Classic
+        host: {
+          // id: 
+          connectionId: this.gameHubService.getConnectionId(),
+          name: 'Player' // TODO: Get from auth
+        }
+      };
+      this.gameHubService.createGame(request);
+    }
+  }
+
+  joinGame() {
+    // Implement join logic
+    alert('Join functionality to be implemented');
+  }
+}

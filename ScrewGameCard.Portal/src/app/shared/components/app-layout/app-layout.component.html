@@ -1,0 +1,10 @@
+<div class="app-layout d-grid" style="grid-template-rows: auto 1fr auto; min-height: 100vh;">
+  <app-header (toggleSidebar)="sidebarCollapsed = !sidebarCollapsed"></app-header>
+  <div class="main-content d-grid" [style.grid-template-columns]="sidebarCollapsed ? '1fr' : '250px 1fr'">
+    <app-sidebar [collapsed]="sidebarCollapsed" class="d-lg-block d-none"></app-sidebar>
+    <main class="content p-3">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+  <app-footer></app-footer>
+</div>

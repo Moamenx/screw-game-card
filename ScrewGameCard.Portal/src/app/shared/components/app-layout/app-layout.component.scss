@@ -1,0 +1,29 @@
+.app-layout {
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+}
+
+.main-content {
+  grid-template-areas: "sidebar content";
+  transition: grid-template-columns 0.3s ease;
+}
+
+app-sidebar {
+  grid-area: sidebar;
+}
+
+.content {
+  grid-area: content;
+  background-color: var(--surface-color);
+}
+
+@media (max-width: 991px) {
+  .main-content {
+    grid-template-columns: 1fr !important;
+  }
+  app-sidebar {
+    display: none !important;
+  }
+}

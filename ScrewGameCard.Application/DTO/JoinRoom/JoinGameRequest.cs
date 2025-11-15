@@ -4,7 +4,7 @@ namespace ScrewGameCard.Application.DTO.JoinRoom
 {
     public class JoinGameRequest
     {
-        public Guid RoomId { get; set; }
+        public Guid GameId { get; set; }
         public PlayerDto Player { get; set; }
     }
 }

@@ -1,0 +1,14 @@
+<div class="game">
+  <h2>Game Room: {{ gameId }}</h2>
+  @if (gameState) {
+    <div>
+      <p>Current Round: {{ gameState.currentRound }}</p>
+      <p>Current Player: {{ gameState.currentPlayerId }}</p>
+      <ul>
+        @for (player of gameState.players; track player.id) {
+          <li>{{ player.name }} - Score: {{ player.score }}</li>
+        }
+      </ul>
+    </div>
+  }
+</div> 

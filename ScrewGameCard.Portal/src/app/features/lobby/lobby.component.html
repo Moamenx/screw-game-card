@@ -1,0 +1,28 @@
+<div class="lobby">
+  <h2>Game Lobby</h2>
+  <div class="actions">
+    <button (click)="showCreateForm = !showCreateForm">Create Room</button>
+    <button (click)="showJoinForm = !showJoinForm">Join Room</button>
+  </div>
+
+  @if (showCreateForm) {
+    <div class="form">
+      <form [formGroup]="createForm" (ngSubmit)="createGame()">
+        <input formControlName="roomName" placeholder="Room Name" />
+        <input formControlName="passCode" placeholder="Passcode (optional)" />
+        <input formControlName="maxPlayers" type="number" placeholder="Max Players" />
+        <app-button type="primary" [disabled]="createForm.invalid">Create</app-button>
+        <input type="submit" (click)="createGame()"/>
+      </form>
+    </div>
+  }
+
+  @if (showJoinForm) {
+    <div class="form">
+      <form [formGroup]="joinForm" (ngSubmit)="joinGame()">
+        <input formControlName="gameId" placeholder="Game ID" />
+        <app-button type="primary" [disabled]="joinForm.invalid">Join</app-button>
+      </form>
+    </div>
+  }
+</div>

@@ -1,0 +1,13 @@
+<header class="header d-flex justify-content-between align-items-center p-3">
+  <div class="d-flex align-items-center">
+    <button class="btn btn-link d-lg-none" (click)="toggleSidebar.emit()" aria-label="Toggle sidebar">
+      <span>☰</span>
+    </button>
+    <h1 class="h4 mb-0 ms-2">Screw Game Card</h1>
+  </div>
+  <div class="d-flex align-items-center">
+    <button class="btn btn-outline-secondary" (click)="themeService.toggleTheme()" aria-label="Toggle theme">
+      {{ themeService.theme === 'light' ? '🌙' : '☀️' }}
+    </button>
+  </div>
+</header>

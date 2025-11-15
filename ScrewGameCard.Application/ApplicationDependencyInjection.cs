@@ -17,6 +17,7 @@ namespace ScrewGameCard.Application
         {
             services.AddScoped<IGameEngine, GameEngine>();
             services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IGameManager, GameManager>();
         }
     }
 }

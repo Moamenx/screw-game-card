@@ -1,0 +1,27 @@
+<div class="input-group">
+  @if (label) {
+    <label [for]="inputId" class="input-label">{{ label }}</label>
+  }
+  <div class="input-wrapper">
+    @if (icon) {
+      <span class="input-icon pi pi-{{ icon }}"></span>
+    }
+    <input
+      pInputText
+      [id]="inputId"
+      [type]="type"
+      [placeholder]="placeholder"
+      [value]="value"
+      [disabled]="disabled"
+      [attr.aria-describedby]="error ? errorId : null"
+      [attr.aria-invalid]="error ? 'true' : null"
+      (input)="onInput($event)"
+      (blur)="onTouched()"
+      class="input-field"
+      [class.ng-invalid]="error"
+    />
+  </div>
+  @if (error) {
+    <div class="input-error" [id]="errorId">{{ error }}</div>
+  }
+</div>

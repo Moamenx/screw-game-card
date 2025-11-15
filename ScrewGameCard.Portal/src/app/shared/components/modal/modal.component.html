@@ -1,0 +1,17 @@
+<p-dialog
+  [(visible)]="isOpen"
+  [modal]="true"
+  [closable]="true"
+  [header]="title"
+  [style]="{ width: '50vw' }"
+  [attr.aria-labelledby]="titleId"
+  [attr.aria-describedby]="contentId"
+  (onHide)="closeModal()"
+>
+  <ng-content></ng-content>
+  @if (showFooter) {
+    <ng-template pTemplate="footer">
+      <ng-content select="[modal-footer]"></ng-content>
+    </ng-template>
+  }
+</p-dialog>

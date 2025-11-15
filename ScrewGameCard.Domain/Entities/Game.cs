@@ -12,7 +12,7 @@ namespace ScrewGameCard.Domain.Entities
         public int DurationPerTurnInSeconds { get; set; }
         public int NumberOfPlayers { get; set; }
         public bool IsDoubleGameRandomized { get; set; }
-        public virtual required Player Host { get; set; }
+        public virtual Player Host { get; set; }
         public bool IsFull { get; set; }
         public GameStatus Status { get; set; }
         public Guid HostId { get; set; }

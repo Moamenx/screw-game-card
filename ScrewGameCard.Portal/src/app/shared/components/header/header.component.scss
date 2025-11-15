@@ -1,0 +1,35 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--surface-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.header .d-flex {
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+}
+
+.btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  border-radius: var(--border-radius);
+}
+
+.btn-outline-secondary {
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--surface-color);
+}
+
+.h4 {
+  margin-bottom: 0;
+  margin-left: var(--spacing-sm);
+}

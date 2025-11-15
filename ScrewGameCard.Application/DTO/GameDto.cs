@@ -7,5 +7,10 @@ namespace ScrewGameCard.Application.DTO
         public Guid Id { get; set; }
         public string Name { get; set; }
         public GameStatus Status { get; set; }
+
+        public static implicit operator GameDto(Game.GameDto v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

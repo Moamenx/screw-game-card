@@ -6,7 +6,7 @@ namespace ScrewGameCard.Application.DTO.Game
     {
         public Guid Id { get; private set; }
         public string RoomName { get; private set; }
-        public List<Player.Player> Players { get; private set; }
+        public List<Player.PlayerDetailsDto> Players { get; private set; }
         public GameStatus Status { get; private set; }
         public int CurrentPlayerIndex { get; private set; }
         public int CurrentRound { get; private set; }
@@ -20,7 +20,7 @@ namespace ScrewGameCard.Application.DTO.Game
         private const int MinPlayers = 4;
         private const int MaxPlayers = 4;
 
-        public Player.Player? CurrentPlayer => Players.ElementAtOrDefault(CurrentPlayerIndex);
+        public Player.PlayerDetailsDto? CurrentPlayer => Players.ElementAtOrDefault(CurrentPlayerIndex);
         public bool IsFull => Players.Count >= MaxPlayers;
         public bool CanStart => Players.Count >= MinPlayers &&
                                 Players.Count <= MaxPlayers &&
@@ -52,7 +52,7 @@ namespace ScrewGameCard.Application.DTO.Game
             HasDoublePointsRound = hasDoublePointsRound;
         }
 
-        public void AddPlayer(Player.Player player)
+        public void AddPlayer(Player.PlayerDetailsDto player)
         {
             if (IsFull)
                 throw new Exception("Game is full");
@@ -66,7 +66,7 @@ namespace ScrewGameCard.Application.DTO.Game
             Players.Add(player);
         }
 
-        public void RemovePlayer(Player.Player player)
+        public void RemovePlayer(Player.PlayerDetailsDto player)
         {
             Players.Remove(player);
         }
@@ -124,7 +124,7 @@ namespace ScrewGameCard.Application.DTO.Game
             Status = GameStatus.InProgress;
         }
 
-        public Player.Player? GetWinner()
+        public Player.PlayerDetailsDto? GetWinner()
         {
             if (Status != GameStatus.Ended || Players.Count == 0)
                 return null;
