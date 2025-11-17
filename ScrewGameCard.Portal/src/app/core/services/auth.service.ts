@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap, catchError, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AuthResponse } from '../../features/auth/models/auth-response.interface';
+import { jwtDecode } from 'jwt-decode';
+import { JwtPayload } from '../models/token.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +13,7 @@ export class AuthService {
   private currentUserSubject = new BehaviorSubject<any>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
   private refreshTokenSubject = new BehaviorSubject<string | null>(null);
+  private apiUrl = 'https://localhost:5001/api/auth'; // Adjust as needed
 
   constructor(private http: HttpClient) {
     const accessToken = localStorage.getItem('accessToken');
@@ -51,6 +54,11 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}auth/refresh`, { refreshToken }).pipe(
       tap((response: any) => {
         localStorage.setItem('accessToken', response.accessToken);
+        if (response.refreshToken) {
+          localStorage.setItem('refreshToken', response.refreshToken);
+          this.refreshTokenSubject.next(response.refreshToken);
+        }
+        this.currentUserSubject.next(response.player);
       }),
       catchError((error) => {
         this.logout();
@@ -75,8 +83,24 @@ export class AuthService {
   }
 
   private decodeToken(token: string): any {
-    // Simple decode, in real app use jwt-decode library
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    return { id: payload.sub, name: payload.unique_name };
+    try {
+      const decoded = jwtDecode<JwtPayload>(token);
+      return { id: decoded.sub, name: decoded.fullName};
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      return null;
+    }
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.getToken();
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('accessToken');
+  }
+
+  setToken(token: string): void {
+    localStorage.setItem('accessToken', token);
   }
 }

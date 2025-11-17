@@ -1,4 +1,4 @@
-import { Player } from "../../../core/types/player.interface";
+import { Player } from "../../../core/models/player.interface";
 
 export interface AuthResponse {
   accessToken?: string;
