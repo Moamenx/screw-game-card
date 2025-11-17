@@ -47,7 +47,7 @@ namespace ScrewGameCard.Application.DTO.Game
             MaxRounds = maxRounds;
             Deck = [];
             DiscardPile = [];
-            CreationTime = DateTime.UtcNow;
+            CreationTime = DateTime.Now;
             CardsPerPlayer = cardsPerPlayer;
             HasDoublePointsRound = hasDoublePointsRound;
         }

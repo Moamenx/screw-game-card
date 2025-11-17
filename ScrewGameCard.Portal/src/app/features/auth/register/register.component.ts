@@ -3,13 +3,14 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { InputComponent } from '../../../shared/components/input/input.component';
+import { CardComponent } from '../../../shared/components/card/card.component';
 import { AuthService } from '../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent, InputComponent],
+  imports: [CommonModule, ReactiveFormsModule, InputComponent, CardComponent],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
@@ -35,7 +36,8 @@ export class RegisterComponent {
     return password && confirmPassword && password.value === confirmPassword.value ? null : { mismatch: true };
   }
 
-  onSubmit() {
+  onSubmit(): void {
+    debugger;
     if (this.registerForm.valid) {
       const { username, password } = this.registerForm.value;
       this.authService.register(username, password).subscribe({

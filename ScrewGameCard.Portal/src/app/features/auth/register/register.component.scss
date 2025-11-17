@@ -1,12 +1,68 @@
 .register-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   min-height: 100vh;
   padding: var(--spacing-lg);
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.register-container app-card {
+  width: 100%;
+  max-width: 400px;
+}
+
+.register-container form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.register-container app-input {
+  width: 100%;
+}
+
+.register-container app-button {
+  align-self: center;
+  margin-top: var(--spacing-md);
 }
 
 .error {
   color: var(--danger-color);
-  margin-bottom: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  text-align: center;
+  margin-top: var(--spacing-sm);
+  padding: var(--spacing-xs);
+  background-color: rgba(220, 53, 69, 0.1);
+  border: 1px solid var(--danger-color);
+  border-radius: var(--border-radius);
+}
+
+.register-container p {
+  margin-top: var(--spacing-lg);
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+.register-container a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.register-container a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .register-container {
+    padding: var(--spacing-md);
+  }
+
+  .register-container app-card {
+    max-width: 100%;
+  }
 }

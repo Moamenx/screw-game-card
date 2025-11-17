@@ -1,5 +1,4 @@
 <p-button
-  [label]="label || ''"
   [icon]="icon ? 'pi pi-' + icon : ''"
   [severity]="type === 'danger' ? 'danger' : type === 'success' ? 'success' : type"
   [size]="size === 'lg' ? 'large' : size === 'sm' ? 'small' : 'small'"
@@ -7,4 +6,6 @@
   [ariaLabel]="ariaLabel"
   (onClick)="onClick()"
   type="button"
-></p-button>
+>
+  <ng-content></ng-content>
+</p-button>

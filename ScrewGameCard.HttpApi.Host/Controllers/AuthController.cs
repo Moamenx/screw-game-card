@@ -1,68 +1,46 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ScrewGameCard.Application.Contract;
 using ScrewGameCard.Application.DTO.Auth;
-using ScrewGameCard.Domain.Entities;
+using ScrewGameCard.DomainShared;
+using ScrewGameCard.HttpApi.Host.Filters;
 
 namespace ScrewGameCard.HttpApi.Host.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/auth")]
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
-    private readonly IAuthenticationProvider _authProvider;
 
-    public AuthController(IAuthService authService, IAuthenticationProvider authProvider)
+    public AuthController(IAuthService authService)
     {
         _authService = authService ?? throw new ArgumentNullException(nameof(authService));
-        _authProvider = authProvider ?? throw new ArgumentNullException(nameof(authProvider));
     }
 
     [HttpPost("register")]
+    [RateLimit("register")]
     public async Task<IActionResult> Register([FromBody] RegisterRequest request)
     {
-        try
-        {
-            var result = await _authService.RegisterAsync(request);
-            return Ok(result);
-        }
-        catch (InvalidOperationException ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var result = await _authService.RegisterAsync(request);
+        var correlationId = HttpContext.Request.Headers["X-Request-Id"].FirstOrDefault();
+        return Ok(ApiResponse<string>.Success(result, correlationId: correlationId));
     }
 
     [HttpPost("login")]
+    [RateLimit("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        try
-        {
-            var player = await _authService.LoginAsync(request);
-            var (accessToken, refreshToken) = await _authProvider.GenerateTokensAsync(player);
-            return Ok(new { AccessToken = accessToken, RefreshToken = refreshToken, Player = new { player.Id, player.Name } });
-        }
-        catch (UnauthorizedAccessException ex)
-        {
-            return Unauthorized(ex.Message);
-        }
+        var response = await _authService.LoginAsync(request);
+        var correlationId = HttpContext.Request.Headers["X-Request-Id"].FirstOrDefault();
+        return Ok(ApiResponse<LoginResponse>.Success(response, correlationId: correlationId));
     }
 
     [HttpPost("refresh")]
-    public async Task<IActionResult> Refresh([FromBody] RefreshRequest request)
+    public async Task<IActionResult> Refresh([FromBody] RefreshTokenRequest request)
     {
-        if (!await _authProvider.ValidateRefreshTokenAsync(request.RefreshToken))
-        {
-            return Unauthorized("Invalid refresh token");
-        }
-
-        // In production, decode refresh token to get user ID
-        // For simplicity, assume we need to re-authenticate or store user in token
-        // Here, we'll require re-login for now
-        return BadRequest("Refresh token validation requires user context. Please re-login.");
+        var response = await _authService.RefreshAsync(request.RefreshToken);
+        var correlationId = HttpContext.Request.Headers["X-Request-Id"].FirstOrDefault();
+        return Ok(ApiResponse<LoginResponse>.Success(response, correlationId: correlationId));
     }
 }
 
-public class RefreshRequest
-{
-    public string RefreshToken { get; set; }
-}

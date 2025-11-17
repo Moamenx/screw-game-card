@@ -6,5 +6,6 @@ namespace ScrewGameCard.Application.Contract;
 public interface IAuthService
 {
     Task<string> RegisterAsync(RegisterRequest request);
-    Task<Player> LoginAsync(LoginRequest request);
+    Task<LoginResponse> LoginAsync(LoginRequest request);
+    Task<LoginResponse> RefreshAsync(string refreshToken);
 }

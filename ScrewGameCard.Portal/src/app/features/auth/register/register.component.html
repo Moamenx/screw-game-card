@@ -1,4 +1,5 @@
 <div class="register-container">
+  <app-card>
     <h2 card-header>Register</h2>
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <app-input
@@ -21,8 +22,8 @@
       @if (errorMessage) {
         <div class="error">{{ errorMessage }}</div>
       }
-      <app-button type="primary" [disabled]="registerForm.invalid">Register</app-button>
+      <input type="submit"  [disabled]="registerForm.invalid" value="Register">
     </form>
     <p>Already have an account? <a routerLink="/login">Login</a></p>
-
+  </app-card>
 </div>

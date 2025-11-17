@@ -1,10 +1,12 @@
-
+using Serilog;
 using ScrewGameCard.Application;
 using ScrewGameCard.Infrastructure;
+using ScrewGameCard.Infrastructure.Services;
 using ScrewGameCard.Infrastructure.SignalR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using ScrewGameCard.HttpApi.Host.Middleware;
 
 namespace ScrewGameCard.HttpApi.Host;
 
@@ -13,6 +15,15 @@ public class Program
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        Log.Logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(builder.Configuration)
+            .Enrich.FromLogContext()
+            .CreateLogger();
+
+        builder.Host.UseSerilog();
+
+        Log.Logger.Information("Starting ScrewGameCard HttpApi.Host...");
         builder.AddServiceDefaults();
 
         // Add services to the container.
@@ -46,10 +57,12 @@ public class Program
                 };
             });
 
+        builder.Services.AddHostedService<RefreshTokenCleanupService>();
+
         var app = builder.Build();
-
-        app.MapDefaultEndpoints();
-
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        app.UseMiddleware<ExceptionHandlingMiddleware>();
+        app.UseRouting();
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {

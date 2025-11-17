@@ -15,7 +15,6 @@ export class ButtonComponent {
   @Input() disabled = false;
   @Input() icon = '';
   @Input() ariaLabel = '';
-  @Input() label = '';
   @Input() onClick = () => {};
 
   get buttonClass(): string {

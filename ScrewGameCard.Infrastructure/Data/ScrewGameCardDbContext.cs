@@ -19,14 +19,16 @@ namespace ScrewGameCard.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new PlayerEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new FriendshipEntityConfiguration());
-            modelBuilder.ApplyConfiguration(new GameEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new GamePlayerEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new RoundEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new GameRoundPlayerEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new StatisticsEntityTypeConfiguration());
+            //modelBuilder.ApplyConfiguration(new PlayerEntityTypeConfiguration());
+            //modelBuilder.ApplyConfiguration(new FriendshipEntityConfiguration());
+            //modelBuilder.ApplyConfiguration(new GameEntityTypeConfiguration());
+            //modelBuilder.ApplyConfiguration(new GamePlayerEntityTypeConfiguration());
+            //modelBuilder.ApplyConfiguration(new RoundEntityTypeConfiguration());
+            //modelBuilder.ApplyConfiguration(new GameRoundPlayerEntityTypeConfiguration());
+            //modelBuilder.ApplyConfiguration(new StatisticsEntityTypeConfiguration());
+            //modelBuilder.ApplyConfiguration(new RefreshTokenEntityConfiguration());
             //modelBuilder.ApplyConfiguration(new LeaderboardEntityTypeConfiguration());
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ScrewGameCardDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }
 

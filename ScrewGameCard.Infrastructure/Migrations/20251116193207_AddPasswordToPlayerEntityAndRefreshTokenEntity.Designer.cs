@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ScrewGameCard.Infrastructure.Data;
@@ -11,9 +12,11 @@ using ScrewGameCard.Infrastructure.Data;
 namespace ScrewGameCard.Infrastructure.Migrations
 {
     [DbContext(typeof(ScrewGameCardDbContext))]
-    partial class ScrewGameCardDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251116193207_AddPasswordToPlayerEntityAndRefreshTokenEntity")]
+    partial class AddPasswordToPlayerEntityAndRefreshTokenEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

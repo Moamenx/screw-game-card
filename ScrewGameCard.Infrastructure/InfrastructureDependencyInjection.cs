@@ -44,6 +44,7 @@ namespace ScrewGameCard.Infrastructure
         private static void RegisterServices(IServiceCollection services)
         {
             services.AddScoped<IAuthenticationProvider, JwtAuthenticationProvider>();
+            services.AddScoped<IRateLimiter, RateLimiterService>();
         }
 
         private static void ConfigureDatabase(IServiceCollection services, IConfiguration configuration)
