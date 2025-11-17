@@ -4,7 +4,7 @@ using ScrewGameCard.Application.DTO.Game;
 using ScrewGameCard.Application.DTO.JoinRoom;
 using ScrewGameCard.Application.DTO.LeaveRoom;
 using ScrewGameCard.Application.DTO.Player;
-using ScrewGameCard.Application.Repository;
+using ScrewGameCard.Application.Repositories;
 using ScrewGameCard.Domain.Entities;
 using ScrewGameCard.Domain.Enums;
 

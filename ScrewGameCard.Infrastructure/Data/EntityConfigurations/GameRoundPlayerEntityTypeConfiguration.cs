@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ScrewGameCard.Domain.Entities;
 
-namespace ScrewGameCard.Infrastructure.Data.EntityConfiguration
+namespace ScrewGameCard.Infrastructure.Data.EntityConfigurations
 {
     public class GameRoundPlayerEntityTypeConfiguration : IEntityTypeConfiguration<GameRoundPlayer>
     {

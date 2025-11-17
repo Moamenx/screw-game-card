@@ -2,7 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ScrewGameCard.Application.Contract;
 using ScrewGameCard.Application.DTO.Auth;
-using ScrewGameCard.Application.Repository;
+using ScrewGameCard.Application.Repositories;
 using ScrewGameCard.Domain.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

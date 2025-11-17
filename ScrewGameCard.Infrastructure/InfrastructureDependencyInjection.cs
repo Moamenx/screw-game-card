@@ -2,11 +2,10 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ScrewGameCard.Application.Contract;
-using ScrewGameCard.Application.Repository;
+using ScrewGameCard.Application.Repositories;
 using ScrewGameCard.Domain.Entities;
 using ScrewGameCard.Infrastructure.Data;
 using ScrewGameCard.Infrastructure.Repositories;
-using ScrewGameCard.Infrastructure.Repository;
 using ScrewGameCard.Infrastructure.Services;
 
 namespace ScrewGameCard.Infrastructure

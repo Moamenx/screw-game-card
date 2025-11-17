@@ -1,7 +1,7 @@
 ﻿    using System.Linq.Expressions;
     using ScrewGameCard.Application.DTO.Common;
 
-    namespace ScrewGameCard.Application.Repository
+    namespace ScrewGameCard.Application.Repositories
 {
     public interface IGenericRepository<T> where T : class
     {

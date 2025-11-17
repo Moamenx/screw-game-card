@@ -1,6 +1,6 @@
 ﻿using ScrewGameCard.Application.DTO.Game;
 
-namespace ScrewGameCard.Application.Repository
+namespace ScrewGameCard.Application.Repositories
 {
     public interface IGameRoomRepository
     {

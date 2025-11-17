@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ScrewGameCard.Domain.Entities;
 
-namespace ScrewGameCard.Infrastructure.Data.EntityConfiguration
+namespace ScrewGameCard.Infrastructure.Data.EntityConfigurations
 {
     public class PlayerEntityTypeConfiguration : IEntityTypeConfiguration<Player>
     {

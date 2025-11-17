@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using ScrewGameCard.Application.DTO.Common;
-using ScrewGameCard.Application.Repository;
+using ScrewGameCard.Application.Repositories;
 using ScrewGameCard.Infrastructure.Data;
 
-namespace ScrewGameCard.Infrastructure.Repository
+namespace ScrewGameCard.Infrastructure.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {

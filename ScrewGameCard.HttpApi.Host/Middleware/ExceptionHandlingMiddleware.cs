@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 using ScrewGameCard.DomainShared;
 using ScrewGameCard.DomainShared.Exceptions;
 
@@ -39,18 +37,21 @@ public class ExceptionHandlingMiddleware
             _ => StatusCodes.Status500InternalServerError
         };
 
-        _logger.LogError(ex, "An error occurred: {Message}", ex.Message);
+
+        if(statusCode == StatusCodes.Status500InternalServerError)
+            _logger.LogError(ex, "An error occurred: {Message}", ex.Message);
 
         var correlationId = context.Request.Headers["X-Request-Id"].FirstOrDefault() ?? Guid.NewGuid().ToString();
+
         var errorCode = ex is AppException appEx ? appEx.ErrorCode : statusCode;
 
-        // Expose message only for known exceptions
         string message = ex is AppException ? ex.Message : "An internal server error occurred.";
 
         context.Response.StatusCode = statusCode;
         context.Response.ContentType = "application/json";
 
         var response = ApiResponse<object>.Error(message, correlationId, errorCode);
+
         await context.Response.WriteAsJsonAsync(response);
     }
 }

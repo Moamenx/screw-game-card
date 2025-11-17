@@ -1,7 +1,7 @@
 using ScrewGameCard.Application.Contract;
 using ScrewGameCard.Application.DTO.Auth;
 using ScrewGameCard.Application.DTO.Player;
-using ScrewGameCard.Application.Repository;
+using ScrewGameCard.Application.Repositories;
 using ScrewGameCard.Domain.Entities;
 using ScrewGameCard.DomainShared.Constants;
 using Microsoft.Extensions.Logging;

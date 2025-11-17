@@ -1,7 +1,6 @@
-using ScrewGameCard.Application.Repository;
+using ScrewGameCard.Application.Repositories;
 using ScrewGameCard.Domain.Entities;
 using ScrewGameCard.Infrastructure.Data;
-using ScrewGameCard.Infrastructure.Repository;
 
 namespace ScrewGameCard.Infrastructure.Repositories;
 

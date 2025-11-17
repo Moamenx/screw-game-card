@@ -2,7 +2,7 @@
 using ScrewGameCard.Application.DTO;
 using ScrewGameCard.Application.DTO.Common;
 using ScrewGameCard.Application.Mapping;
-using ScrewGameCard.Application.Repository;
+using ScrewGameCard.Application.Repositories;
 using ScrewGameCard.Domain.Enums;
 
 namespace ScrewGameCard.Application.Service

@@ -1,6 +1,6 @@
 ﻿using ScrewGameCard.Domain.Entities;
 
-namespace ScrewGameCard.Application.Repository
+namespace ScrewGameCard.Application.Repositories
 {
     public interface IGameRepository : IGenericRepository<Game>
     {

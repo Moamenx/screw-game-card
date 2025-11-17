@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ScrewGameCard.Domain.Entities;
 using ScrewGameCard.Domain.Entities.Common;
-using ScrewGameCard.Infrastructure.Data.EntityConfiguration;
 
 namespace ScrewGameCard.Infrastructure.Data
 {
@@ -15,19 +14,11 @@ namespace ScrewGameCard.Infrastructure.Data
         public DbSet<GameRoundPlayer> GameRoundPlayers { get; set; }
         public DbSet<Statistics> Statistics { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<Localization> Localizations { get; set; }
         //public DbSet<Leaderboard> Leaderboards { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.ApplyConfiguration(new PlayerEntityTypeConfiguration());
-            //modelBuilder.ApplyConfiguration(new FriendshipEntityConfiguration());
-            //modelBuilder.ApplyConfiguration(new GameEntityTypeConfiguration());
-            //modelBuilder.ApplyConfiguration(new GamePlayerEntityTypeConfiguration());
-            //modelBuilder.ApplyConfiguration(new RoundEntityTypeConfiguration());
-            //modelBuilder.ApplyConfiguration(new GameRoundPlayerEntityTypeConfiguration());
-            //modelBuilder.ApplyConfiguration(new StatisticsEntityTypeConfiguration());
-            //modelBuilder.ApplyConfiguration(new RefreshTokenEntityConfiguration());
-            //modelBuilder.ApplyConfiguration(new LeaderboardEntityTypeConfiguration());
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ScrewGameCardDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }

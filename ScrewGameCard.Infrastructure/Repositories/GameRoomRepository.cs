@@ -1,8 +1,8 @@
 ﻿using System.Collections.Concurrent;
 using ScrewGameCard.Application.DTO.Game;
-using ScrewGameCard.Application.Repository;
+using ScrewGameCard.Application.Repositories;
 
-namespace ScrewGameCard.Infrastructure.Repository
+namespace ScrewGameCard.Infrastructure.Repositories
 {
     public class GameRoomRepository : IGameRoomRepository
     {
