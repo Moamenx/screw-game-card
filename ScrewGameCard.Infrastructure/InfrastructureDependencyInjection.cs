@@ -7,6 +7,9 @@ using ScrewGameCard.Domain.Entities;
 using ScrewGameCard.Infrastructure.Data;
 using ScrewGameCard.Infrastructure.Repositories;
 using ScrewGameCard.Infrastructure.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace ScrewGameCard.Infrastructure
 {
@@ -19,6 +22,8 @@ namespace ScrewGameCard.Infrastructure
             RegisterRepositories(services); 
             RegisterServices(services);
             RegisterSingleR(services);
+            AddHostedServices(services);
+            AddAuthentication(services, configuration);
             return services;
         }
 
@@ -38,12 +43,15 @@ namespace ScrewGameCard.Infrastructure
             services.AddScoped<IGenericRepository<GamePlayer>, GenericRepository<GamePlayer>>();
             services.AddScoped<IGenericRepository<Round>, GenericRepository<Round>>();
             services.AddScoped<IGenericRepository<RefreshToken>, RefreshTokenRepository>();
+            services.AddScoped<ILocalizationRepository, LocalizationRepository>();
         }
 
         private static void RegisterServices(IServiceCollection services)
         {
             services.AddScoped<IAuthenticationProvider, JwtAuthenticationProvider>();
             services.AddScoped<IRateLimiter, RateLimiterService>();
+            services.AddMemoryCache();
+            services.AddScoped<ILocalizationService, LocalizationService>();
         }
 
         private static void ConfigureDatabase(IServiceCollection services, IConfiguration configuration)
@@ -53,6 +61,30 @@ namespace ScrewGameCard.Infrastructure
                 opts.UseNpgsql(configuration.GetConnectionString("ScrewGameCardDb"));
                 opts.EnableDetailedErrors();
             });
+        }
+
+        private static void AddAuthentication(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = configuration["Jwt:Issuer"],
+                        ValidAudience = configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
+                    };
+                });
+        }
+
+        private static void AddHostedServices(IServiceCollection services)
+        {
+            services.AddHostedService<RefreshTokenCleanupService>();
+            services.AddHostedService<LocalizationCacheHostedService>();
         }
     }
 }

@@ -1,12 +1,9 @@
 using Serilog;
 using ScrewGameCard.Application;
 using ScrewGameCard.Infrastructure;
-using ScrewGameCard.Infrastructure.Services;
 using ScrewGameCard.Infrastructure.SignalR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using ScrewGameCard.HttpApi.Host.Middleware;
+using ScrewGameCard.DomainShared;
 
 namespace ScrewGameCard.HttpApi.Host;
 
@@ -27,10 +24,12 @@ public class Program
         builder.AddServiceDefaults();
 
         // Add services to the container.
+        Log.Logger.Information("Registering services...");
+
         builder.Services.AddInfrastructure(builder.Configuration);
         builder.Services.AddApplication(builder.Configuration);
+        builder.Services.Configure<CachingDurationOption>(builder.Configuration.GetSection(CachingDurationOption.SectionName));
         builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddCors(options =>
@@ -40,24 +39,8 @@ public class Program
                 p.WithOrigins(GetAllowedOrigins()).AllowAnyMethod().AllowCredentials().AllowAnyHeader();
             });
         });
-
-        // Add Authentication
-        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                    ValidAudience = builder.Configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-                };
-            });
-
-        builder.Services.AddHostedService<RefreshTokenCleanupService>();
+        Log.Logger.Information("Registered all services!");
+        Log.Logger.Information("Application is ready!");
 
         var app = builder.Build();
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -75,7 +58,6 @@ public class Program
 
         app.UseAuthentication();
         app.UseAuthorization();
-
 
         app.MapControllers();
 
