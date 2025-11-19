@@ -58,19 +58,14 @@ namespace ScrewGameCard.Application.Service
                 JoinedAt = DateTime.Now,
                 CreatedDate = DateTime.Now
             };
-
+            game.Players.Add(gamePlayer);
             await _gamePlayerRepository.AddAsync(gamePlayer);
 
-            var gameDto = new GameDto
+            var gameDto = new DTO.GameDto
             {
                 Id = game.Id,
                 Name = game.Name,
-                MaximumNumberOfPlayers = game.NumberOfPlayers,
-                NumberOfPlayersInGame = 1,
-                Status = game.Status,
-                Type = GameType.Classic,
-                RequiresPassword = game.IsPrivate,
-                IsFull = game.IsFull
+                Status = GameStatus.Waiting
             };
 
             return new CreateRoomResponse { Game = gameDto, IsCreated = true };

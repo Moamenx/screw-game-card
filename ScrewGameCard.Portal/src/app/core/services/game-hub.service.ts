@@ -2,6 +2,8 @@ import { Injectable, signal } from '@angular/core';
 import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { AuthService } from './auth.service';
+import { GameDto, CreateGameRequest } from '../models/game.interface';
 
 export interface Player {
   id: string;
@@ -33,7 +35,6 @@ export interface IServerMethods {
   CardPlayed: (playerId: string, card: Card) => void;
   GameOver: (winnerId: string) => void;
   Error: (message: string) => void;
-  GameCreated: (game: any) => void; // From SignalRService
 }
 
 // Client-to-Server Methods
@@ -42,7 +43,7 @@ export interface IClientMethods {
   LeaveGame: () => Promise<void>;
   StartGame: () => Promise<void>;
   PlayCard: (cardId: string) => Promise<void>;
-  CreateGame: (request: any) => Promise<void>; // From SignalRService
+  CreateGame: (request: CreateGameRequest) => Promise<GameDto>;
 }
 
 // Type-safe hub connection wrapper
@@ -89,16 +90,16 @@ export class GameHubService {
   public error = signal<string | null>(null);
 
   // Subjects for lobby events
-  private gameCreatedSubject = new Subject<any>();
   private lobbyErrorSubject = new Subject<string>();
 
-  public gameCreated$ = this.gameCreatedSubject.asObservable();
   public lobbyError$ = this.lobbyErrorSubject.asObservable();
   public connectionId$ = this.connectionIdSubject.asObservable();
-
-  constructor() {
+  constructor(private authService: AuthService) {
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl(environment.hubUrl)
+      .withUrl(environment.hubUrl, 
+        {
+          accessTokenFactory: () => this.authService.getAccessToken()!
+        })
       .configureLogging(LogLevel.Information)
       .build();
 
@@ -161,9 +162,6 @@ export class GameHubService {
     });
 
     // Lobby events
-    this.hub.on('GameCreated', (game) => {
-      this.gameCreatedSubject.next(game);
-    });
   }
 
   async startConnection(): Promise<void> {
@@ -195,8 +193,8 @@ export class GameHubService {
   }
 
   // Lobby methods
-  async createGame(request: any): Promise<void> {
-    await this.hub.invoke('CreateGame', request);
+  async createGame(request: CreateGameRequest): Promise<GameDto> {
+    return await this.hub.invoke('CreateGame', request);
   }
 
   disconnect(): Promise<void> {

@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using ScrewGameCard.Application.Contract;
 using ScrewGameCard.Application.DTO.CreateRoom;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using ScrewGameCard.Application.DTO;
 
 namespace ScrewGameCard.Infrastructure.SignalR
 {
@@ -17,20 +20,19 @@ namespace ScrewGameCard.Infrastructure.SignalR
         {
             await base.OnConnectedAsync();
         }
-
-        public async Task CreateGame(CreateGameRequest request)
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<GameDto> CreateGame(CreateGameRequest request)
         {
-            var playerId = Context.ConnectionId;
+            if (await _gameManager.IsPlayerInAnyRoom(Context.UserIdentifier))
+                throw new HubException("You are already in a room");
 
-            if (await _gameManager.IsPlayerInAnyRoom(playerId))
-                await Clients.Caller.Error("You are already in a room");
-
+            request?.Host.Id = Guid.Parse(Context.UserIdentifier);
             var creationResult =  await _gameManager.CreateGameAsync(request);
 
             if(!creationResult.IsCreated)
-                await Clients.Caller.Error("Something went wrong. Please try again");
+                throw new HubException("Something went wrong. Please try again");
 
-            await Clients.Caller.GameCreated(creationResult?.Game);
+            return creationResult.Game;
 
         }
     }

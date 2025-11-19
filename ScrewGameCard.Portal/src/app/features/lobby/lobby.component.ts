@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { GameHubService } from '../../core/services/game-hub.service';
 import { CommonModule } from '@angular/common';
+import { CreateGameRequest } from '../../core/models/game.interface';
 
 @Component({
   selector: 'app-lobby',
@@ -36,28 +37,29 @@ export class LobbyComponent implements OnInit {
 
   ngOnInit() {
     this.gameHubService.startConnection();
-    this.gameHubService.gameCreated$.subscribe(game => {
-      this.router.navigate(['/game', game.id]);
-    });
     this.gameHubService.lobbyError$.subscribe(error => {
       alert(error);
     });
   }
 
-  createGame() {
+  async createGame() {
     if (this.createForm.valid) {
-      const request = {
+      const request: CreateGameRequest = {
         roomName: this.createForm.value.roomName,
         passCode: this.createForm.value.passCode,
         maximumNumberOfPlayers: this.createForm.value.maxPlayers,
         type: 1, // Classic
         host: {
-          // id: 
           connectionId: this.gameHubService.getConnectionId(),
-          name: 'Player' // TODO: Get from auth
+          name: 'Player'
         }
       };
-      this.gameHubService.createGame(request);
+      try {
+        const game = await this.gameHubService.createGame(request);
+        this.router.navigate(['/game', game.id]);
+      } catch (error) {
+        alert('Failed to create game: ' + error);
+      }
     }
   }
 

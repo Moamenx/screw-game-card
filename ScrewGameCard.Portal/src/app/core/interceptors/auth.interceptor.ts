@@ -8,7 +8,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   if(isAuthRequest(req) || isPublicRequest(req) || isRefreshRequest(req)) {
         return next(req);
-  }
+}
   const token = authService.getToken();
 
   if (token) {

@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import { AuthResponse } from '../../features/auth/models/auth-response.interface';
 import { jwtDecode } from 'jwt-decode';
 import { JwtPayload } from '../models/token.interface';
+import { ApiResponse } from '../models/api-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -26,39 +27,41 @@ export class AuthService {
     }
   }
 
-  register(username: string, password: string): Observable<any> {
-    return this.http.post(`${environment.apiUrl}auth/register`, { username, password });
+  register(username: string, password: string): Observable<ApiResponse<any>> {
+    return this.http.post<ApiResponse<any>>(`${environment.apiUrl}auth/register`, { username, password });
   }
 
-  login(username: string, password: string): Observable<AuthResponse> {
-    return this.http.post(`${environment.apiUrl}auth/login`, { username, password }).pipe(
+  login(username: string, password: string): Observable<ApiResponse<AuthResponse>> {
+    return this.http.post<ApiResponse<AuthResponse>>(`${environment.apiUrl}auth/login`, { username, password }).pipe(
       tap(response => {
-        if (response.accessToken) {
-          localStorage.setItem('accessToken', response.accessToken);
-          if (response.refreshToken) {
-            localStorage.setItem('refreshToken', response.refreshToken);
-            this.refreshTokenSubject.next(response.refreshToken);
+        if (response.data?.accessToken) {
+          localStorage.setItem('accessToken', response.data.accessToken);
+          if (response.data.refreshToken) {
+            localStorage.setItem('refreshToken', response.data.refreshToken);
+            this.refreshTokenSubject.next(response.data.refreshToken);
           }
-          this.currentUserSubject.next(response.player);
+          this.currentUserSubject.next(response.data.player);
         }
       })
     );
   }
-  refreshToken(): Observable<any> {
+  refreshToken(): Observable<ApiResponse<AuthResponse>> {
     const refreshToken = this.refreshTokenSubject.value;
     if (!refreshToken) {
       this.logout();
       return throwError(() => new Error('No refresh token'));
     }
 
-    return this.http.post(`${environment.apiUrl}auth/refresh`, { refreshToken }).pipe(
-      tap((response: any) => {
-        localStorage.setItem('accessToken', response.accessToken);
-        if (response.refreshToken) {
-          localStorage.setItem('refreshToken', response.refreshToken);
-          this.refreshTokenSubject.next(response.refreshToken);
+    return this.http.post<ApiResponse<AuthResponse>>(`${environment.apiUrl}auth/refresh`, { refreshToken }).pipe(
+      tap((response) => {
+        if (response.data?.accessToken) {
+          localStorage.setItem('accessToken', response.data.accessToken);
+          if (response.data.refreshToken) {
+            localStorage.setItem('refreshToken', response.data.refreshToken);
+            this.refreshTokenSubject.next(response.data.refreshToken);
+          }
+          this.currentUserSubject.next(response.data.player);
         }
-        this.currentUserSubject.next(response.player);
       }),
       catchError((error) => {
         this.logout();
@@ -94,6 +97,19 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     return !!this.getToken();
+  }
+
+  isTokenExpired(): boolean {
+    const token = this.getAccessToken();
+    if (!token) return true;
+    try {
+      const decoded = jwtDecode<JwtPayload>(token);
+      if (!decoded.exp) return true;
+      return decoded.exp * 1000 < Date.now();
+    } catch (error) {
+      console.error('Error decoding token for expiration check:', error);
+      return true;
+    }
   }
 
   getToken(): string | null {

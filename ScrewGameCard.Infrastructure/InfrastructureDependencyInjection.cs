@@ -23,7 +23,7 @@ namespace ScrewGameCard.Infrastructure
             RegisterServices(services);
             RegisterSingleR(services);
             AddHostedServices(services);
-            AddAuthentication(services, configuration);
+            ConfigureAuthentication(services, configuration);
             return services;
         }
 
@@ -63,7 +63,7 @@ namespace ScrewGameCard.Infrastructure
             });
         }
 
-        private static void AddAuthentication(IServiceCollection services, IConfiguration configuration)
+        private static void ConfigureAuthentication(IServiceCollection services, IConfiguration configuration)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -77,6 +77,18 @@ namespace ScrewGameCard.Infrastructure
                         ValidIssuer = configuration["Jwt:Issuer"],
                         ValidAudience = configuration["Jwt:Audience"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]))
+                    };
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
+                            if (!string.IsNullOrEmpty(accessToken))
+                            {
+                                context.Token = accessToken;
+                            }
+                            return Task.CompletedTask;
+                        }
                     };
                 });
         }
