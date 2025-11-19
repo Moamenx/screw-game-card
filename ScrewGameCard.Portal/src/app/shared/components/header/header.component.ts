@@ -1,39 +1,23 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ThemeService } from '../../../core/services/theme.service';
+import { LanguageService } from '../../../core/services/language.service';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './header.component.html',
-  styles: [`
-    .header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-
-    .btn {
-      border: none;
-      background: none;
-      cursor: pointer;
-      padding: var(--spacing-sm);
-      border-radius: var(--border-radius);
-    }
-
-    .btn-outline-secondary {
-      border: 1px solid var(--border-color);
-      color: var(--text-color);
-    }
-
-    .btn-outline-secondary:hover {
-      background-color: var(--surface-color);
-    }
-  `]
+  styleUrls: ['./header.component.scss']
 })
+
 export class HeaderComponent {
   @Output() toggleSidebar = new EventEmitter<void>();
 
-  constructor(public themeService: ThemeService) {}
+  constructor(
+    public themeService: ThemeService,
+    public languageService: LanguageService
+  ) {}
 }
+

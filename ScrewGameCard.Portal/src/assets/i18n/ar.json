@@ -1,0 +1,60 @@
+{
+  "HEADER": {
+    "BRAND": "سكرو جيم كارد",
+    "TOGGLE_SIDEBAR": "تبديل القائمة الجانبية",
+    "TOGGLE_LANGUAGE": "تغيير اللغة",
+    "TOGGLE_THEME": "تغيير السمة"
+  },
+  "SIDEBAR": {
+    "HOME": "الرئيسية",
+    "LOBBY": "الردهة",
+    "PROFILE": "الملف الشخصي"
+  },
+  "LOGIN": {
+    "TITLE": "مرحباً بعودتك",
+    "USERNAME": "اسم المستخدم",
+    "PASSWORD": "كلمة المرور",
+    "PLACEHOLDER": {
+      "USERNAME": "أدخل اسم المستخدم",
+      "PASSWORD": "أدخل كلمة المرور"
+    },
+    "BUTTON": "تسجيل الدخول",
+    "NO_ACCOUNT": "ليس لديك حساب؟",
+    "CREATE_ACCOUNT": "أنشئ حساباً"
+  },
+  "REGISTER": {
+    "TITLE": "إنشاء حساب",
+    "USERNAME": "اسم المستخدم",
+    "PASSWORD": "كلمة المرور",
+    "CONFIRM_PASSWORD": "تأكيد كلمة المرور",
+    "PLACEHOLDER": {
+      "USERNAME": "اختر اسم مستخدم",
+      "PASSWORD": "اختر كلمة مرور",
+      "CONFIRM_PASSWORD": "أعد كتابة كلمة المرور"
+    },
+    "BUTTON": "تسجيل",
+    "HAS_ACCOUNT": "لديك حساب بالفعل؟",
+    "LOGIN": "تسجيل الدخول"
+  },
+  "LOBBY": {
+    "TITLE": "ردهة اللعبة",
+    "CREATE_ROOM": "إنشاء غرفة",
+    "JOIN_ROOM": "انضمام لغرفة",
+    "PLACEHOLDER": {
+      "ROOM_NAME": "اسم الغرفة",
+      "PASSCODE": "رمز الدخول (اختياري)",
+      "MAX_PLAYERS": "الحد الأقصى للاعبين",
+      "GAME_ID": "معرف اللعبة"
+    },
+    "BUTTON": {
+      "CREATE": "إنشاء",
+      "JOIN": "انضمام"
+    }
+  },
+  "GAME": {
+    "ROOM": "غرفة اللعب",
+    "ROUND": "الجولة الحالية",
+    "PLAYER": "اللاعب الحالي",
+    "SCORE": "النقاط"
+  }
+}

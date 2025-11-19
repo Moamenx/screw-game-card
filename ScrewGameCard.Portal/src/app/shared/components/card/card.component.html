@@ -1,8 +1,11 @@
 <p-card [attr.aria-labelledby]="headerId">
   @if (header) {
-    <ng-template pTemplate="header" [id]="headerId">
-      <ng-content select="[card-header]"></ng-content>
+    <ng-template pTemplate="header">
+      <div [id]="headerId">
+        <ng-content select="[card-header]"></ng-content>
+      </div>
     </ng-template>
+
   }
   <ng-content></ng-content>
   @if (footer) {

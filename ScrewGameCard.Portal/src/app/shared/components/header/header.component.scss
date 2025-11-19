@@ -1,35 +1,75 @@
 .header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background-color: var(--surface-color);
-  border-bottom: 1px solid var(--border-color);
-}
-
-.header .d-flex {
+  background: var(--glass-bg);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+  border-bottom: var(--glass-border);
+  padding: var(--spacing-md) var(--spacing-lg);
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--spacing-md);
+  height: 70px;
+  transition: all var(--transition-normal);
 }
 
-.btn {
-  border: none;
-  background: none;
-  cursor: pointer;
-  padding: var(--spacing-sm);
-  border-radius: var(--border-radius);
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
 }
 
-.btn-outline-secondary {
-  border: 1px solid var(--border-color);
+.brand-text {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.5px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.theme-toggle {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: var(--text-color);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-sm);
 }
 
-.btn-outline-secondary:hover {
-  background-color: var(--surface-color);
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: rotate(15deg);
 }
 
-.h4 {
-  margin-bottom: 0;
-  margin-left: var(--spacing-sm);
+.menu-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  font-size: var(--font-size-xl);
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+@media (min-width: 992px) {
+  .menu-btn {
+    display: none;
+  }
+}
+

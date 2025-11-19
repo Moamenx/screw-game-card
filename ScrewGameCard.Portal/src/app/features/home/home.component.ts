@@ -14,6 +14,6 @@ export class HomeComponent {
   constructor(private router: Router, public authService: AuthService) {}
 
   goToLobby() {
-    this.router.navigate(['/lobby']);
+    this.router.navigate(['game/lobby']);
   }
 }

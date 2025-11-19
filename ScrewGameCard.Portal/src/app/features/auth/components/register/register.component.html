@@ -1,0 +1,46 @@
+<div class="register-container">
+  <app-card [header]="true">
+    <h2 card-header>{{ 'REGISTER.TITLE' | translate }}</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <app-input
+        [label]="'REGISTER.USERNAME' | translate"
+        formControlName="username"
+        [placeholder]="'REGISTER.PLACEHOLDER.USERNAME' | translate"
+        icon="pi pi-user"
+      ></app-input>
+      <app-input
+        [label]="'REGISTER.PASSWORD' | translate"
+        type="password"
+        formControlName="password"
+        [placeholder]="'REGISTER.PLACEHOLDER.PASSWORD' | translate"
+        icon="pi pi-lock"
+      ></app-input>
+      <app-input
+        [label]="'REGISTER.CONFIRM_PASSWORD' | translate"
+        type="password"
+        formControlName="confirmPassword"
+        [placeholder]="'REGISTER.PLACEHOLDER.CONFIRM_PASSWORD' | translate"
+        icon="pi pi-lock"
+      ></app-input>
+      
+      @if (errorMessage) {
+        <div class="error">
+          <i class="pi pi-exclamation-circle"></i>
+          {{ errorMessage }}
+        </div>
+      }
+      
+      <div class="actions">
+        <app-button 
+          type="primary" 
+          size="lg" 
+          [disabled]="registerForm.invalid" 
+          (onClick)="onSubmit()">
+          {{ 'REGISTER.BUTTON' | translate }}
+        </app-button>
+      </div>
+    </form>
+    <p>{{ 'REGISTER.HAS_ACCOUNT' | translate }} <a routerLink="/login">{{ 'REGISTER.LOGIN' | translate }}</a></p>
+  </app-card>
+</div>
+

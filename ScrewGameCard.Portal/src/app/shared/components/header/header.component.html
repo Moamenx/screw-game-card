@@ -1,13 +1,18 @@
-<header class="header d-flex justify-content-between align-items-center p-3">
-  <div class="d-flex align-items-center">
-    <button class="btn btn-link d-lg-none" (click)="toggleSidebar.emit()" aria-label="Toggle sidebar">
+<header class="header">
+  <div class="brand">
+    <button class="menu-btn" (click)="toggleSidebar.emit()" [attr.aria-label]="'HEADER.TOGGLE_SIDEBAR' | translate">
       <span>☰</span>
     </button>
-    <h1 class="h4 mb-0 ms-2">Screw Game Card</h1>
+    <span class="brand-text">{{ 'HEADER.BRAND' | translate }}</span>
   </div>
-  <div class="d-flex align-items-center">
-    <button class="btn btn-outline-secondary" (click)="themeService.toggleTheme()" aria-label="Toggle theme">
+  
+  <div class="actions">
+    <button class="theme-toggle" (click)="languageService.toggleLanguage()" [attr.aria-label]="'HEADER.TOGGLE_LANGUAGE' | translate">
+      {{ languageService.currentLang() === 'en' ? 'ع' : 'EN' }}
+    </button>
+    <button class="theme-toggle" (click)="themeService.toggleTheme()" [attr.aria-label]="'HEADER.TOGGLE_THEME' | translate">
       {{ themeService.theme === 'light' ? '🌙' : '☀️' }}
     </button>
   </div>
 </header>
+

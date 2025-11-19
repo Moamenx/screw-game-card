@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GameService } from '../../core/services/game.service';
+import { GameService } from '../../../../core/services/game.service';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '../../../../shared/pipes/translate.pipe';
 
 @Component({
   selector: 'app-game',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
 })
+
 export class GameComponent implements OnInit {
   gameId: string = '';
   gameState: any = null;

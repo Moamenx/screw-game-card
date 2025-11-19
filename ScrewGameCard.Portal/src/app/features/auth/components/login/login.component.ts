@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { InputComponent } from '../../../shared/components/input/input.component';
-import { CardComponent } from '../../../shared/components/card/card.component';
-import { AuthService } from '../../../core/services/auth.service';
+import { Router, RouterModule } from '@angular/router';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { InputComponent } from '../../../../shared/components/input/input.component';
+import { CardComponent } from '../../../../shared/components/card/card.component';
+import { AuthService } from '../../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '../../../../shared/pipes/translate.pipe';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputComponent, CardComponent],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, InputComponent, CardComponent, ButtonComponent, TranslatePipe],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent {
   loginForm: FormGroup;
   errorMessage = '';
@@ -33,9 +35,10 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
       this.authService.login(username, password).subscribe({
-        next: () => this.router.navigate(['/lobby']),
+        next: () => this.router.navigate(['/game/lobby']),
         error: (err) => this.errorMessage = 'Invalid credentials'
       });
     }
   }
 }
+

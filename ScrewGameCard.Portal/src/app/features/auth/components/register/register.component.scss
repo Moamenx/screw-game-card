@@ -1,43 +1,52 @@
 .register-container {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: var(--spacing-lg);
-  background-color: var(--background-color);
-  color: var(--text-color);
+  padding: var(--spacing-md);
+  /* Background is handled by body global style */
 }
 
 .register-container app-card {
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
+  display: block;
+  animation: slideUp 0.5s ease-out;
 }
 
 .register-container form {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-md);
+  gap: var(--spacing-lg);
 }
 
 .register-container app-input {
   width: 100%;
 }
 
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
 .register-container app-button {
-  align-self: center;
-  margin-top: var(--spacing-md);
+  width: 100%;
 }
 
 .error {
   color: var(--danger-color);
   font-size: var(--font-size-sm);
   text-align: center;
-  margin-top: var(--spacing-sm);
-  padding: var(--spacing-xs);
-  background-color: rgba(220, 53, 69, 0.1);
-  border: 1px solid var(--danger-color);
+  padding: var(--spacing-sm);
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
   border-radius: var(--border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
 }
 
 .register-container p {
@@ -49,20 +58,31 @@
 
 .register-container a {
   color: var(--primary-color);
+  font-weight: var(--font-weight-medium);
   text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
 .register-container a:hover {
+  color: var(--primary-hover);
   text-decoration: underline;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsive adjustments */
 @media (max-width: 576px) {
   .register-container {
-    padding: var(--spacing-md);
-  }
-
-  .register-container app-card {
-    max-width: 100%;
+    padding: var(--spacing-sm);
   }
 }
+

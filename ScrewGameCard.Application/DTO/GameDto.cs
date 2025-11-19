@@ -7,6 +7,7 @@ namespace ScrewGameCard.Application.DTO
         public Guid Id { get; set; }
         public string Name { get; set; }
         public GameStatus Status { get; set; }
-    
+        public bool IsPrivate { get; set; }
+
     }
 }

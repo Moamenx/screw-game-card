@@ -35,6 +35,7 @@ namespace ScrewGameCard.Application.Service
 
             var game = new Game
             {
+                Id = Guid.CreateVersion7(),
                 Name = request.RoomName,
                 RoomPasscode = request.PassCode,
                 NumberOfPlayers = request.MaximumNumberOfPlayers,
@@ -44,10 +45,24 @@ namespace ScrewGameCard.Application.Service
                 IsFull = false,
                 DurationPerTurnInSeconds = 30,
                 IsDoubleGameRandomized = true,
-                CreatedDate = DateTime.Now
             };
 
-            await _gameRepository.AddAsync(game);
+            var rounds = new List<Round>();
+            var random = new Random();
+            var doubleRoundIndex = random.Next(1, 5);
+
+            for (int i = 1; i <= 5; i++)
+            {
+                rounds.Add(new Round
+                {
+                    GameId = game.Id,
+                    RoundNumber = i,
+                    IsDouble = i == doubleRoundIndex,
+                    
+                });
+            }
+
+            game.Rounds = rounds;
 
             var gamePlayer = new GamePlayer
             {
@@ -56,10 +71,12 @@ namespace ScrewGameCard.Application.Service
                 Position = 1,
                 Status = GamePlayerStatus.Ready,
                 JoinedAt = DateTime.Now,
-                CreatedDate = DateTime.Now
             };
             game.Players.Add(gamePlayer);
-            await _gamePlayerRepository.AddAsync(gamePlayer);
+
+            await _gameRepository.AddAsync(game);
+
+            //await _gamePlayerRepository.AddAsync(gamePlayer);
 
             var gameDto = new DTO.GameDto
             {
@@ -120,17 +137,12 @@ namespace ScrewGameCard.Application.Service
 
             game.Status = GameStatus.Started;
 
-            // Create 5 rounds
-            for (int i = 1; i <= 5; i++)
+            // Update the first round's StartedAt timestamp
+            var firstRound = game.Rounds.FirstOrDefault(r => r.RoundNumber == 1);
+            if (firstRound != null)
             {
-                var round = new Round
-                {
-                    GameId = game.Id,
-                    RoundNumber = i,
-                    IsDouble = false, // Will randomize later
-                    StartedAt = DateTime.Now
-                };
-                await _roundRepository.AddAsync(round);
+                firstRound.StartedAt = DateTime.Now;
+                await _roundRepository.UpdateAsync(firstRound);
             }
 
             await _gameRepository.UpdateAsync(game);
@@ -214,3 +226,4 @@ namespace ScrewGameCard.Application.Service
         }
     }
 }
+

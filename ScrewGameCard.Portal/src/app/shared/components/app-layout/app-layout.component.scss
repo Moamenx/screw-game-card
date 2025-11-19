@@ -1,29 +1,83 @@
 .app-layout {
+  display: grid;
   grid-template-areas:
-    "header"
-    "main"
-    "footer";
+    "header header"
+    "sidebar content"
+    "sidebar footer";
+  grid-template-columns: 280px 1fr;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  background: transparent; /* Let body background show through */
 }
 
 .main-content {
-  grid-template-areas: "sidebar content";
-  transition: grid-template-columns 0.3s ease;
+  display: contents; /* Remove extra wrapper div behavior */
 }
 
 app-sidebar {
   grid-area: sidebar;
+  background: var(--glass-bg);
+  backdrop-filter: var(--backdrop-blur);
+  border-inline-end: var(--glass-border);
+  z-index: 10;
+  transition: transform var(--transition-normal);
+}
+
+
+app-header {
+  grid-area: header;
+  z-index: 20;
+  position: sticky;
+  top: 0;
 }
 
 .content {
   grid-area: content;
-  background-color: var(--surface-color);
+  padding: var(--spacing-lg);
+  overflow-y: auto;
+  /* No background here to let body gradient show */
 }
 
+app-footer {
+  grid-area: footer;
+  padding: var(--spacing-md);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* Responsive adjustments */
 @media (max-width: 991px) {
-  .main-content {
-    grid-template-columns: 1fr !important;
+  .app-layout {
+    grid-template-areas:
+      "header"
+      "content"
+      "footer";
+    grid-template-columns: 1fr;
   }
+
   app-sidebar {
-    display: none !important;
+    position: fixed;
+    top: 0;
+    left: 0; /* Keep left for LTR default, override for RTL */
+    bottom: 0;
+    width: 280px;
+    transform: translateX(-100%);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* RTL Support for Sidebar */
+  :host-context([dir="rtl"]) app-sidebar {
+    left: auto;
+    right: 0;
+    transform: translateX(100%);
+    border-right: none;
+    border-left: var(--glass-border);
+  }
+
+  app-sidebar.open {
+    transform: translateX(0);
   }
 }
+
+

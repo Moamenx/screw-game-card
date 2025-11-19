@@ -1,0 +1,15 @@
+<div class="game">
+  <h2>{{ 'GAME.ROOM' | translate }}: {{ gameId }}</h2>
+  @if (gameState) {
+    <div>
+      <p>{{ 'GAME.ROUND' | translate }}: {{ gameState.currentRound }}</p>
+      <p>{{ 'GAME.PLAYER' | translate }}: {{ gameState.currentPlayerId }}</p>
+      <ul>
+        @for (player of gameState.players; track player.id) {
+          <li>{{ player.name }} - {{ 'GAME.SCORE' | translate }}: {{ player.score }}</li>
+        }
+      </ul>
+    </div>
+  }
+</div> 
+

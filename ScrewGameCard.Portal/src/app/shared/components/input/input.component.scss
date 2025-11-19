@@ -1,12 +1,13 @@
 .input-group {
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
 }
 
 .input-label {
   display: block;
   margin-bottom: var(--spacing-xs);
-  font-weight: var(--font-weight-bold);
-  color: var(--text-color);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
 }
 
 .input-wrapper {
@@ -17,45 +18,26 @@
 
 .input-icon {
   position: absolute;
-  left: var(--spacing-sm);
+  left: auto; /* Reset left */
+  right: auto; /* Reset right */
+  inset-inline-start: var(--spacing-md); /* Logical start */
   color: var(--text-muted);
   z-index: 1;
-}
-
-.input-field {
-  width: 100%;
-  padding: var(--spacing-sm) var(--spacing-md);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
-  background-color: var(--background-color);
-  color: var(--text-color);
-  font-family: var(--font-family);
-  font-size: var(--font-size-md);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.input-field:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(var(--primary-color), 0.2);
-}
-
-.input-field.error {
-  border-color: var(--danger-color);
-}
-
-.input-field:disabled {
-  background-color: var(--surface-color);
-  color: var(--text-muted);
-  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .input-field:has(.input-icon) {
-  padding-left: calc(var(--spacing-md) + var(--spacing-lg));
+  padding-inline-start: calc(var(--spacing-md) * 2.5);
+  padding-inline-end: var(--spacing-md);
 }
+
 
 .input-error {
   margin-top: var(--spacing-xs);
   color: var(--danger-color);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
 }
+

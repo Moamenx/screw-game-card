@@ -1,0 +1,39 @@
+<div class="login-container">
+  <app-card [header]="true">
+    <h2 card-header>{{ 'LOGIN.TITLE' | translate }}</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <app-input
+        [label]="'LOGIN.USERNAME' | translate"
+        formControlName="username"
+        [placeholder]="'LOGIN.PLACEHOLDER.USERNAME' | translate"
+        icon="pi pi-user"
+      ></app-input>
+      <app-input
+        [label]="'LOGIN.PASSWORD' | translate"
+        type="password"
+        formControlName="password"
+        [placeholder]="'LOGIN.PLACEHOLDER.PASSWORD' | translate"
+        icon="pi pi-lock"
+      ></app-input>
+      
+      @if (errorMessage) {
+        <div class="error">
+          <i class="pi pi-exclamation-circle"></i>
+          {{ errorMessage }}
+        </div>
+      }
+      
+      <div class="actions">
+        <app-button 
+          type="primary" 
+          size="lg" 
+          [disabled]="loginForm.invalid" 
+          (onClick)="onSubmit()">
+          {{ 'LOGIN.BUTTON' | translate }}
+        </app-button>
+      </div>
+    </form>
+    <p>{{ 'LOGIN.NO_ACCOUNT' | translate }} <a routerLink="/register">{{ 'LOGIN.CREATE_ACCOUNT' | translate }}</a></p>
+  </app-card>
+</div>
+

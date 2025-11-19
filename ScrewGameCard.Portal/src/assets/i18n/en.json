@@ -1,0 +1,60 @@
+{
+  "HEADER": {
+    "BRAND": "Screw Game Card",
+    "TOGGLE_SIDEBAR": "Toggle sidebar",
+    "TOGGLE_LANGUAGE": "Toggle language",
+    "TOGGLE_THEME": "Toggle theme"
+  },
+  "SIDEBAR": {
+    "HOME": "Home",
+    "LOBBY": "Lobby",
+    "PROFILE": "Profile"
+  },
+  "LOGIN": {
+    "TITLE": "Welcome Back",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "PLACEHOLDER": {
+      "USERNAME": "Enter your username",
+      "PASSWORD": "Enter your password"
+    },
+    "BUTTON": "Login",
+    "NO_ACCOUNT": "Don't have an account?",
+    "CREATE_ACCOUNT": "Create one"
+  },
+  "REGISTER": {
+    "TITLE": "Create Account",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "CONFIRM_PASSWORD": "Confirm Password",
+    "PLACEHOLDER": {
+      "USERNAME": "Choose a username",
+      "PASSWORD": "Choose a password",
+      "CONFIRM_PASSWORD": "Confirm your password"
+    },
+    "BUTTON": "Register",
+    "HAS_ACCOUNT": "Already have an account?",
+    "LOGIN": "Login"
+  },
+  "LOBBY": {
+    "TITLE": "Game Lobby",
+    "CREATE_ROOM": "Create Room",
+    "JOIN_ROOM": "Join Room",
+    "PLACEHOLDER": {
+      "ROOM_NAME": "Room Name",
+      "PASSCODE": "Passcode (optional)",
+      "MAX_PLAYERS": "Max Players",
+      "GAME_ID": "Game ID"
+    },
+    "BUTTON": {
+      "CREATE": "Create",
+      "JOIN": "Join"
+    }
+  },
+  "GAME": {
+    "ROOM": "Game Room",
+    "ROUND": "Current Round",
+    "PLAYER": "Current Player",
+    "SCORE": "Score"
+  }
+}

@@ -1,0 +1,28 @@
+<div class="lobby">
+  <h2>{{ 'LOBBY.TITLE' | translate }}</h2>
+  <div class="actions">
+    <button (click)="showCreateForm = !showCreateForm">{{ 'LOBBY.CREATE_ROOM' | translate }}</button>
+    <button (click)="showJoinForm = !showJoinForm">{{ 'LOBBY.JOIN_ROOM' | translate }}</button>
+  </div>
+
+  @if (showCreateForm) {
+    <div class="form">
+      <form [formGroup]="createForm" (ngSubmit)="createGame()">
+        <input formControlName="roomName" [placeholder]="'LOBBY.PLACEHOLDER.ROOM_NAME' | translate" />
+        <input formControlName="passCode" [placeholder]="'LOBBY.PLACEHOLDER.PASSCODE' | translate" />
+        <input formControlName="maxPlayers" type="number" [placeholder]="'LOBBY.PLACEHOLDER.MAX_PLAYERS' | translate" />
+        <app-button type="primary" [disabled]="createForm.invalid">{{ 'LOBBY.BUTTON.CREATE' | translate }}</app-button>
+      </form>
+    </div>
+  }
+
+  @if (showJoinForm) {
+    <div class="form">
+      <form [formGroup]="joinForm" (ngSubmit)="joinGame()">
+        <input formControlName="gameId" [placeholder]="'LOBBY.PLACEHOLDER.GAME_ID' | translate" />
+        <app-button type="primary" [disabled]="joinForm.invalid">{{ 'LOBBY.BUTTON.JOIN' | translate }}</app-button>
+      </form>
+    </div>
+  }
+</div>
+

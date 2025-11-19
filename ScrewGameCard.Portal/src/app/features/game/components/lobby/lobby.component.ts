@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ButtonComponent } from '../../shared/components/button/button.component';
-import { GameHubService } from '../../core/services/game-hub.service';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { GameHubService } from '../../../../core/services/game-hub.service';
 import { CommonModule } from '@angular/common';
-import { CreateGameRequest } from '../../core/models/game.interface';
+import { CreateGameRequest } from '../../../../core/models/game.interface';
+import { TranslatePipe } from '../../../../shared/pipes/translate.pipe';
 
 @Component({
   selector: 'app-lobby',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ButtonComponent],
+  imports: [CommonModule, ReactiveFormsModule, ButtonComponent, TranslatePipe],
   templateUrl: './lobby.component.html',
   styleUrls: ['./lobby.component.scss']
 })
+
 export class LobbyComponent implements OnInit {
   createForm: FormGroup;
   joinForm: FormGroup;
